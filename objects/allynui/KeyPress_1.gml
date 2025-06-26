@@ -48,7 +48,28 @@ if truth(menu)=8{
 if truth(menu)=9{
 				switch fix_clipping{
 					case false:{
-	if keyboard_check_pressed( vk_up ){
+						
+if keyboard_check(ord("B"))
+{
+				subframe-=1;var _totalframes=sprite_get_number(current_sprite)
+				if subframe=-1{subframe=_totalframes-1}
+		global.fakeclick=true
+		event_perform(ev_mouse,ev_global_left_press)
+		global.fakeclick=false
+}
+if keyboard_check(ord("N"))
+{
+				subframe+=1;var _totalframes=sprite_get_number(current_sprite)
+				if subframe=_totalframes{subframe=0}
+		global.fakeclick=true
+		event_perform(ev_mouse,ev_global_left_press)
+		global.fakeclick=false
+}
+
+
+
+			
+		if keyboard_check_pressed( vk_up ){
 						sprite_array[subframe] = sprite_shift(sprite_array[subframe],,-1);
 						current_sprite=merge_sprite_array(sprite_array)
 	}
@@ -71,4 +92,16 @@ if truth(menu)=9{
 					}break
 				}
 
+}
+
+if keyboard_check(ord("F"))
+{
+    if window_get_fullscreen()
+    {
+        window_set_fullscreen(false);
+    }
+    else
+    {
+        window_set_fullscreen(true);
+    }
 }

@@ -125,7 +125,8 @@ function sprite_creator(colour,index){
 
 function new_character(){
 	giant_array_for_character=[ 
-	[ "Question Mark",1,3,3,2,-19.75,-0.37,5.50 ],
+	//[ "Question Mark",1,3,3,2,-19.75,-0.37,5.50 ],
+	[ "New Character",1,3,3,2,-19.75,-0.37,5.50 ],
 	[ "RED",4,33,42,9 ],
 	[ "PURPLE",4,33,42,9 ],
 	[ "GREEN",4,33,42,9 ],

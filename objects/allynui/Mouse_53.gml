@@ -583,7 +583,7 @@ switch _menu_value{
 			}break
 			case true:{
 				var _heading1 = "Enable or disable character..."
-				var _footerbutton = "Finsihed?"
+				var _footerbutton = "Finished?"
 				var _footerbutton_x = 388
 				var _alignment=fa_center
 			}break
@@ -685,7 +685,7 @@ switch _menu_value{
 				if truth(position_array)!=69{
 					var _quick_function =function(){
 						var _i=0
-						var sprite_info = ["File name","Number of frames","Centre point, x","Centre point, y","Frames per second"]
+						var sprite_info = ["File name","Number of Frames","Centre Point, x","Centre Point, y","Frames per Second"]
 						repeat (array_length(sprite_info)){
 							var _stringz
 							_stringz=string(sprite_data[_i])
@@ -747,7 +747,7 @@ switch _menu_value{
 			if truth(position_array)!=69{
 				var _quick_function =function(){
 					var _i=0
-					var sprite_info = ["File name","Number of frames","Centre point, x","Centre point, y","Frames per second"]
+					var sprite_info = ["File name","Number of Frames","Centre Point, x","Centre Point, y","Frames per Second"]
 					var _posit = truth(position_array)+1
 					repeat (array_length(sprite_info)){
 						var _stringz
@@ -810,7 +810,7 @@ switch _menu_value{
 					auto_button_text(menu_text_array,320, 169, "Save Character?",true,button_click_array,,0.3,0.3,,2.2)
 				}break
 				case false:{
-					auto_button_text(menu_text_array,407, 169, "Save New character?",true,button_click_array,,0.3,0.3,,2.2)
+					auto_button_text(menu_text_array,407.7, 169, "Save as New character?",true,button_click_array,,0.3,0.3,,2.2)
 					auto_button_text(menu_text_array,233, 169, "Modify Character?",true,button_click_array,,0.3,0.3,,2.2)
 				}break
 			}
@@ -826,7 +826,7 @@ switch _menu_value{
 		auto_button_text(menu_text_array,377,233, "Open sprite sheet?",true,button_click_array)
 		auto_button_text(menu_text_array,163, 33, "X",true,button_click_array)
 		switch drag_sprite{
-			case false:{auto_button_text(menu_text_array,222,233, "Click to drag?",true,button_click_array)
+			case false:{auto_button_text(menu_text_array,222,233, "Click to Drag?",true,button_click_array)
 				if slastpage>1{
 					auto_button_text(menu_text_array,417,277, "<-",true,extra_button_array)
 					auto_button_text(menu_text_array,471,277, "->",true,extra_button_array)
@@ -845,10 +845,10 @@ switch _menu_value{
 		auto_button_text(menu_text_array,177, 273,"  <--  ",true,button_click_array)
 		auto_button_text(menu_text_array,406,123, "Crop",true,button_click_array)		
 		//auto_button_text(menu_text_array,344,123, "crop from sheet",true,button_click_array)		
-		auto_button_text(menu_text_array,344,277, "Import sprite sheet? (.png file)",true,button_click_array)		
+		auto_button_text(menu_text_array,344,277, "Import Sprite Sheet? (.png file)",true,button_click_array)		
 		var _quick_function =function(){
 			var _i=0
-			var sprite_info = ["File name","Number of frames","Centre point, x","Centre point, y","Frames per second"]
+			var sprite_info = ["File name","Number of Frames","Centre Point, x","Centre Point, y","Frames per Second"]
 			var _posit = truth(position_array)+1
 			repeat (array_length(sprite_info)){
 				var _stringz
@@ -884,6 +884,7 @@ switch _menu_value{
 		auto_button_text(menu_text_array,300,230,"\\/",true,extra_button_array,)
 		auto_button_text(menu_text_array,300,20,"/\\",true,extra_button_array,)
 					auto_button_text(menu_text_array,69,333, "Click arrows or use arrow keys",,,fa_left)
+					auto_button_text(menu_text_array,596,333, "Click <- and -> or press B and N keys",,,fa_right)
 				}break
 				case true:{
 					auto_button_text(menu_text_array,406.39,233, "Fix it!",true,button_click_array)
@@ -891,7 +892,6 @@ switch _menu_value{
 				}break
 			}
 		}
-		//auto_button_text(menu_text_array,596,333, "Click <- and -> or press B and N keys",,,fa_right)
 		//auto_button_text(menu_text_array,163, 33, "X",true,button_click_array)
 		var _totalframes=sprite_get_number(current_sprite)
 		var _lestring =string("{0}/{3}", subframe+1,,,_totalframes)
