@@ -60,9 +60,13 @@ switch truth(menu){
 				var x2=x1+_sprite_width
 				var y2=y1+_sprite_height
 			if fix_clipping=true{
+				if clipping_v[_frame]>0{y2=y1+clipping_v[_frame]}
+				if clipping_v[_frame]<0{y1=y1+_sprite_height+clipping_v[_frame]}
+				
 				if clipping[_frame]>0{draw_rectangle(x1,y1,x2-_sprite_width+clipping[_frame],y2, true);}
 				//draw_rectangle(x1,y1,x2,y2, true);
 				if clipping[_frame]<0{draw_rectangle(x1+_sprite_width+clipping[_frame],y1,x2,y2, true);}
+
 			}
 			else if _k=0	{draw_rectangle(x1,y1,x2,y2, true)}
 			

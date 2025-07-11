@@ -336,6 +336,7 @@ switch _menu_value{
 				if subframe>=_totalframes{subframe=_totalframes-1}
 				fix_clipping=false
 				clipping=array_create(sprite_get_number(current_sprite), 0);
+				clipping_v=array_create(sprite_get_number(current_sprite), 0);
 			}break
 		}
 		if truth(_returned_sub_array)>=0 {
@@ -491,8 +492,30 @@ switch _menu_value{
 					}break
 				}
 			}break
-
 			case 5:{
+				switch fix_clipping{
+					case false:{
+						sprite_array[subframe] = sprite_shift(sprite_array[subframe],,1);
+						current_sprite=merge_sprite_array(sprite_array)
+					}break
+					case true:{
+						clipping_v[subframe]+=1
+					}
+				}
+			}break
+			case 6:{
+				switch fix_clipping{
+					case false:{
+						sprite_array[subframe] = sprite_shift(sprite_array[subframe],,-1);
+						current_sprite=merge_sprite_array(sprite_array)
+					}break
+					case true:{
+						clipping_v[subframe]-=1
+					}
+				}
+
+			}break
+			case 7:{
 				switch fix_clipping{
 					case false:{
 						fix_clipping=true
@@ -501,26 +524,20 @@ switch _menu_value{
 						fix_clipping=false
 						//if clipping[subframe]!=0{
 							//current_sprite=fix_clips(current_sprite, clipping) 
-							current_sprite=fix_clips_array(current_sprite, clipping) 
+							current_sprite=fix_clips_array(current_sprite, clipping,clipping_v) 
 							sprite_array = split_sprite_into_array(current_sprite);
 							clipping=0
+							clipping_v=0
 						//}
 					}break
 				}
 			}break
 		}
+		
 		switch truth(_returned_extra_array){
 			case 0:{
 				current_sprite=flip_sprite(current_sprite) 
 				sprite_array = split_sprite_into_array(current_sprite);
-			}break
-			case 1:{
-						sprite_array[subframe] = sprite_shift(sprite_array[subframe],,1);
-						current_sprite=merge_sprite_array(sprite_array)
-			}break
-			case 2:{
-						sprite_array[subframe] = sprite_shift(sprite_array[subframe],,-1);
-						current_sprite=merge_sprite_array(sprite_array)
 			}break
 		}
 	}break
@@ -875,16 +892,15 @@ switch _menu_value{
 		auto_button_text(menu_text_array,417,277, "<-",true,button_click_array)
 		auto_button_text(menu_text_array,391,119.9,">",true,button_click_array,)
 		auto_button_text(menu_text_array,209,119.9,"<",true,button_click_array,)
+		auto_button_text(menu_text_array,300,230,"\\/",true,button_click_array,)
+		auto_button_text(menu_text_array,300,20,"/\\",true,button_click_array,)
 		if clipping=0 {auto_button_text(menu_text_array,406.39,233, "Clipping completed...")}
 		else {
 			switch fix_clipping{
 				case false:{
 					auto_button_text(menu_text_array,406.39,233, "Fix clipped sprite?",true,button_click_array)
 		auto_button_text(menu_text_array,196,233,"Flip sprite?",true,extra_button_array)
-		auto_button_text(menu_text_array,300,230,"\\/",true,extra_button_array,)
-		auto_button_text(menu_text_array,300,20,"/\\",true,extra_button_array,)
 					auto_button_text(menu_text_array,69,333, "Click arrows or use arrow keys",,,fa_left)
-					auto_button_text(menu_text_array,596,333, "Click <- and -> or press B and N keys",,,fa_right)
 				}break
 				case true:{
 					auto_button_text(menu_text_array,406.39,233, "Fix it!",true,button_click_array)
@@ -892,6 +908,7 @@ switch _menu_value{
 				}break
 			}
 		}
+		//auto_button_text(menu_text_array,596,333, "Click <- and -> or press B and N keys",,,fa_right)
 		//auto_button_text(menu_text_array,163, 33, "X",true,button_click_array)
 		var _totalframes=sprite_get_number(current_sprite)
 		var _lestring =string("{0}/{3}", subframe+1,,,_totalframes)

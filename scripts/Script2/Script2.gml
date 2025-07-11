@@ -212,7 +212,7 @@ if clipping < 0 {
 	
 	
 	
-function fix_clips_array(sprite, clipping_array) {
+function fix_clips_array_backup(sprite, clipping_array) {
     var subimage_count = sprite_get_number(sprite);
     var _array_length = array_length(clipping_array);
     if (_array_length != subimage_count) return sprite; // Validate input
@@ -283,6 +283,164 @@ function fix_clips_array(sprite, clipping_array) {
             var surf1 = surface_create(_sprite_width + _abs_clipping, _sprite_height);
             surface_set_target(surf1);
             draw_clear_alpha(c_black, 0);
+            draw_sprite_part(sprite, skip1, _sprite_width - _abs_clipping, 0, _abs_clipping, _sprite_height, 0, 0);
+	//var temp_file = string("temp/debug/{0}_ Pasting {1} surf1_0.png",i,skip1)
+	//surface_save(surf1, temp_file);
+            draw_sprite_part(sprite, skip2, 0, 0, _sprite_width, _sprite_height, _abs_clipping, 0);
+	//var temp_file = string("temp/debug/{0}_ Pasting {1} surf1_1.png",i,skip2)
+	//surface_save(surf1, temp_file);
+            surface_reset_target();
+            
+            // Source surface: Source minus right columns
+            var surf2 = surface_create(_new_width, _sprite_height);
+            surface_set_target(surf2);
+            draw_clear_alpha(c_black, 0);
+			
+	        if (modified_indices[skip1] == 1) {
+				draw_surface_part(modified_surfaces[skip1],0,0,abs(modified_width[skip1])-_abs_clipping,_sprite_height,0,0)
+	        } else {
+				draw_sprite_part(sprite, skip1, 0, 0, _sprite_width - _abs_clipping, _sprite_height, 0, 0);
+	        }
+
+	//var temp_file = string("temp/debug/{0}_ Pasting {1} surf2.png",i,skip1)
+	//surface_save(surf2, temp_file);
+            surface_reset_target();
+        }
+        
+        modified_surfaces[skip1] = surf2;
+        modified_surfaces[skip2] = surf1;
+        modified_indices[skip1] = 1;
+        modified_indices[skip2] = 1;
+		modified_width[skip2]=_sprite_width + _abs_clipping
+    }
+    
+    // Step 2: Create final surface
+    var sprite_array = split_sprite_into_array(sprite);
+    var surf = surface_create(_new_width * subimage_count, _sprite_height);
+    surface_set_target(surf);
+    draw_clear_alpha(c_black, 0);
+    for (var i = 0; i < subimage_count; i++) {
+        if (modified_indices[i] == 1) {
+            draw_surface(modified_surfaces[i], i * _new_width, 0);
+            surface_free(modified_surfaces[i]);
+        } else {
+            draw_sprite(sprite_array[i], 0, i * _new_width + _xoffset, _yoffset);
+        }
+    }
+    surface_reset_target();
+    
+    // Free sprite array
+    for (var i = 0; i < array_length(sprite_array); i++) {
+        sprite_delete(sprite_array[i]);
+    }
+    
+    // Step 3: Save and create new sprite
+    var temp_file = "temp/tempspritesheet02.png";
+    surface_save(surf, temp_file);
+    surface_free(surf);
+    
+    var epic_sprite = sprite_add("temp/tempspritesheet02.png", subimage_count, false, false, _xoffset, _yoffset);
+    return epic_sprite;
+}
+	
+function fix_clips_array(sprite, clipping_array_h,clipping_array_v) {
+    var subimage_count = sprite_get_number(sprite);
+    var _array_length = array_length(clipping_array_h);
+    if (_array_length != subimage_count) return sprite; // Validate input
+    
+    var _sprite_width = sprite_get_width(sprite);
+    var _sprite_height = sprite_get_height(sprite);
+    var _xoffset = sprite_get_xoffset(sprite);
+    var _yoffset = sprite_get_yoffset(sprite);
+	
+	var modified_width=[]
+    
+    // Calculate total width increase
+    var total_clipping = 0;
+    for (var i = 0; i < _array_length; i++) {
+        total_clipping += abs(clipping_array_h[i]);
+    }
+    var _new_width = _sprite_width + total_clipping;
+    
+    // Create array to store modified surfaces
+    var modified_surfaces = array_create(subimage_count, -1);
+    var modified_indices = array_create(subimage_count, -1); // Track which subimages are modified
+    
+    // Step 1: Process all clipping transfers
+    for (var i = 0; i < subimage_count; i++) {
+        var clipping = clipping_array_h[i];
+        if (clipping == 0) continue;
+        
+        var _abs_clipping = abs(clipping);
+        var skip1 = i; // Source subimage
+        var skip2 = (clipping > 0) ? (i - 1 + subimage_count) % subimage_count : (i + 1) % subimage_count; // Target
+        
+        if (clipping > 0) {
+            // Target surface: Original target + clipping from left of source
+            var surf1 = surface_create(_sprite_width + _abs_clipping, _sprite_height);
+            surface_set_target(surf1);
+            draw_clear_alpha(c_black, 0);
+
+            //drawing all of previous subframe (skip2)
+			if (modified_indices[skip2] == 1) {
+                draw_surface_part(modified_surfaces[skip2], 0, 0, _sprite_width, _sprite_height, 0, 0);
+            } else {
+                           draw_sprite_part(sprite, skip2, 0, 0, _sprite_width, _sprite_height, 0, 0);
+            }
+			
+	//var temp_file = string("temp/debug/{0}_ Pasting {1} surf1_0.png",i,skip2)
+	//surface_save(surf1, temp_file);
+	
+            //drawing clipping of focused subframe (skip1) to fix previous subframe
+			if (modified_indices[skip2] == 1) && clipping_array_v[skip2]=0{
+				//if clipping_array_v[skip2]>0{//or <0
+				//draw_sprite_part(sprite, skip1, 0, 0, _abs_clipping, clipping_array_v[i], _sprite_width, 0)
+				//  draw_sprite_part(sprite, skip1, 0, 0, _abs_clipping, _sprite_height, _sprite_width, 0)
+				//}
+				//else{//clipping_array_v[skip2]=0 AND clipping_array_v[i]=0
+                draw_sprite_part(sprite, skip1, 0, 0, _abs_clipping, _sprite_height, _sprite_width-clipping_array_h[skip2], 0)
+				//}
+            } else {
+				if clipping_array_v[i]>0{
+				draw_sprite_part(sprite, skip1, 0, 0, _abs_clipping, clipping_array_v[i], _sprite_width, 0)
+				}
+                else {
+				draw_sprite_part(sprite, skip1, 0, 0, _abs_clipping, _sprite_height, _sprite_width, 0)
+				}
+            }
+			
+	//var temp_file = string("temp/debug/{0}_ Pasting {1} surf1_1.png",i,skip1)
+	//surface_save(surf1, temp_file);
+            surface_reset_target();
+            
+            // Source surface: Source minus left columns WTF ARE YOU TALKIGN ABOUG
+			
+            var surf2 = surface_create(_new_width, _sprite_height);
+            surface_set_target(surf2);
+            draw_clear_alpha(c_black, 0);
+			
+			//drawing rest of focused subframe... (skip1)
+			if clipping_array_v[i]>0{
+				draw_sprite_part(sprite, skip1, 0, clipping_array_v[i], _abs_clipping, _sprite_height-clipping_array_v[i], 0, clipping_array_v[i])
+				draw_sprite_part(sprite, skip1, _abs_clipping, 0, _sprite_width - _abs_clipping, _sprite_height, _abs_clipping, 0);
+			}
+
+			else{
+            draw_sprite_part(sprite, skip1, _abs_clipping, 0, _sprite_width - _abs_clipping, _sprite_height, 0, 0);
+			}
+	//var temp_file = string("temp/debug/{0}_ Pasting {1} surf2.png",i,skip1)
+	//surface_save(surf2, temp_file);
+            surface_reset_target();
+        }
+		else {
+            // Target surface: Columns from right of source + original target
+            var surf1 = surface_create(_sprite_width + _abs_clipping, _sprite_height);
+            surface_set_target(surf1);
+            draw_clear_alpha(c_black, 0);
+			var _yy=0
+			if clipping_array_v[i]=0{}
+			if clipping_array_v[i]>0{}
+			if clipping_array_v[i]<0{}
             draw_sprite_part(sprite, skip1, _sprite_width - _abs_clipping, 0, _abs_clipping, _sprite_height, 0, 0);
 	//var temp_file = string("temp/debug/{0}_ Pasting {1} surf1_0.png",i,skip1)
 	//surface_save(surf1, temp_file);
