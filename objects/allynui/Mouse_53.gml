@@ -888,9 +888,9 @@ switch _menu_value{
 		_quick_function()
  		if editing=false{auto_button_text(menu_text_array,388, 152, "<-- Check the frames!",,,,0.3,0.3)}
 		if name_error=true{auto_button_text(menu_text_array,404, 239, "Error: Duplicate file name!",,,,0.3,0.3)}
+		else if truth(position_array)=5{auto_button_text(menu_text_array,406, 242,"Sync with attack?",true,button_click_array)}
 		auto_button_text(menu_text_array,406, 182, "Drag sprite sheet",,,,0.3,0.3)
 		auto_button_text(menu_text_array,406, 202, "to see all frames",,,,0.3,0.3)
-		if truth(position_array)=5{auto_button_text(menu_text_array,406, 242,"Sync with attack?",true,button_click_array)}
 	}break
 	case 8:{
 		auto_button_text(menu_text_array,163, 33, "X",true,button_click_array)

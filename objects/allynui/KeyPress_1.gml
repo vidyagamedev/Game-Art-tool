@@ -35,6 +35,12 @@ if truth(menu)=4||truth(menu)=7{
 			}
 			editing=false
 		}
+		else if keyboard_check_pressed(vk_escape){
+			global.fakeclick=true
+			editing=false
+			event_perform(ev_mouse,ev_global_left_press)
+			global.fakeclick=false
+		}
 		else{keyboard_string=string_replace(keyboard_string,"Please type", "")}
 		global.fakeclick=true
 		event_perform(ev_mouse,ev_global_left_press)
