@@ -15,8 +15,8 @@
     "path":"folders/Objects/people.yy",
   },
   "parentObjectId":{
-    "name":"a_Player_G",
-    "path":"objects/a_Player_G/a_Player_G.yy",
+    "name":"a_Player",
+    "path":"objects/a_Player/a_Player.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,

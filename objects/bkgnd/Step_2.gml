@@ -13,7 +13,7 @@ math_set_epsilon(0);
 
 
 
-if instance_exists(a_Player){	
+if instance_exists(a_Player) && instance_exists(allynui)=false{	//
 	if a_Player.x<70{
 		camera_set_view_target(view_camera[0], noone);
 		camera_set_view_pos(view_camera[0],a_Player.x-70,433)
@@ -27,6 +27,7 @@ if instance_exists(a_Player){
 }else{
 	_cx += _xspd
 	camera_set_view_pos(view_camera[0], _cx, 433);
+	camera_set_view_target(view_camera[0], noone);
 }
 	
 global.lay_x+=_xspd
