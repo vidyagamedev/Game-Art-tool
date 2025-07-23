@@ -477,8 +477,11 @@ switch _menu_value{
 						current_sprite=merge_sprite_array(sprite_array)
 					}break
 					case true:{
-						clipping[subframe]+=1
-						if keyboard_check(vk_space){clipping[subframe]+=5}
+						var _side_check = function(_element, _index){return (_element < 0)}
+						if clipping[subframe]!=0 || array_find_index(clipping, _side_check)=-1{
+							clipping[subframe]+=1
+							if keyboard_check(vk_space){clipping[subframe]+=5}
+						}
 					}break
 				}
 			}break
@@ -489,8 +492,11 @@ switch _menu_value{
 						current_sprite=merge_sprite_array(sprite_array)
 					}break
 					case true:{
-						clipping[subframe]-=1
-						if keyboard_check(vk_space){clipping[subframe]-=5}
+						var _side_check = function(_element, _index){return (_element > 0)}
+						if clipping[subframe]!=0 || array_find_index(clipping, _side_check)=-1{
+							clipping[subframe]-=1
+							if keyboard_check(vk_space){clipping[subframe]-=5}
+						}
 					}break
 				}
 			}break
