@@ -805,7 +805,37 @@ switch _menu_value{
 					}
 					repeat (r_length){
 						var _stringz
-						if editing = true && _i=truth(selected_to_edit){_stringz=keyboard_string}
+						if editing = true && _i=truth(selected_to_edit){
+							_stringz=keyboard_string
+							if general_parameters[_i]="jumpframe"{
+								auto_button_text(menu_text_array,69,333, "The frame when feet leave the ground and start to move up",,,fa_left)
+							}
+							else if general_parameters[_i]="jumpspeed"{
+								auto_button_text(menu_text_array,69,333, "The speed for how fast to jump up.",,,fa_left)
+							}
+							else if general_parameters[_i]="walkstep2"{
+								auto_button_text(menu_text_array,69,327, "The frame to make footstep sound, when the foot steps on the ground.",,,fa_left,.25,.25)
+								auto_button_text(menu_text_array,27,342, "The first frame of the animation will also make a sound.",,,fa_left,.25,.25)
+								auto_button_text(menu_text_array,307,346, "Thus, two footstep sounds per loop... One footstep sound for each foot",,,fa_left,.25,.25)
+							}
+							else if general_parameters[_i]="jumpframe0"{
+								auto_button_text(menu_text_array,69,330, "The frame to move up slowly, about to peak jumping.",,,fa_left,.3,.3)
+								auto_button_text(menu_text_array,369,340, "Decelerated, still moving up but not as fast.",,,fa_left,.3,.3)
+							}
+							else if general_parameters[_i]="LandY"{
+								auto_button_text(menu_text_array,27,327, "Where on the ground to land and/or stand.",,,fa_left,.3,.3)
+								auto_button_text(menu_text_array,120,347, "How many pixels below the horizon should the feet be?",,,fa_left,.3,.3)
+								auto_button_text(menu_text_array,433,337, "Bigger number if tall.",,,fa_left,.3,.3)
+							}
+							else if general_parameters[_i]="fllspd"{
+								auto_button_text(menu_text_array,69,333, "The fall speed, how fast to fall...",,,fa_left)
+							}
+							else if general_parameters[_i]="myd"{
+								auto_button_text(menu_text_array,69,330, "The distance from the player to stand idle.",,,fa_left,.3,.3)
+								auto_button_text(menu_text_array,340,340, "This is for your allies that follow you, the player.",,,fa_left,.3,.3)
+							}
+							
+						}
 						else {_stringz=string(giant_array_for_character[0][_i])}
 						auto_button_text(menu_text_array,292,42+_i*29, string(general_parameters[_i]) +": " +  _stringz ,true,extra_button_array)
 						_i+=1
