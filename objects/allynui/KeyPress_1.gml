@@ -14,8 +14,7 @@ if truth(menu)=4||truth(menu)=7{
 				}
 			}
 			else if string_digits(keyboard_string)!=""{
-				var tempyvar = string_digits(keyboard_string)
-				var _keyboard_string=real(tempyvar)
+				var _keyboard_string=real(keyboard_string)
 				if truth(position_array)!=69{
 					var _posit = truth(position_array)+1
 					giant_array_for_character[_posit][_i]=_keyboard_string
