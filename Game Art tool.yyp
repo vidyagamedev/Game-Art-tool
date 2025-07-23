@@ -113,7 +113,6 @@
   "name":"Game Art tool",
   "resources":[
     {"id":{"name":"fnt_button","path":"fonts/fnt_button/fnt_button.yy",},},
-    {"id":{"name":"a_Player_G","path":"objects/a_Player_G/a_Player_G.yy",},},
     {"id":{"name":"a_Player_GUI","path":"objects/a_Player_GUI/a_Player_GUI.yy",},},
     {"id":{"name":"a_Player","path":"objects/a_Player/a_Player.yy",},},
     {"id":{"name":"allynui","path":"objects/allynui/allynui.yy",},},

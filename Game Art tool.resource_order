@@ -4,7 +4,6 @@
     {"name":"menu","order":2,"path":"folders/Sprites/menu.yy",},
   ],
   "ResourceOrderSettings":[
-    {"name":"a_Player_G","order":5,"path":"objects/a_Player_G/a_Player_G.yy",},
     {"name":"a_Player_GUI","order":4,"path":"objects/a_Player_GUI/a_Player_GUI.yy",},
     {"name":"a_Player","order":3,"path":"objects/a_Player/a_Player.yy",},
     {"name":"allynui","order":2,"path":"objects/allynui/allynui.yy",},
