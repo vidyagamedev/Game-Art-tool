@@ -478,6 +478,7 @@ switch _menu_value{
 					}break
 					case true:{
 						clipping[subframe]+=1
+						if keyboard_check(vk_space){clipping[subframe]+=5}
 					}break
 				}
 			}break
@@ -489,6 +490,7 @@ switch _menu_value{
 					}break
 					case true:{
 						clipping[subframe]-=1
+						if keyboard_check(vk_space){clipping[subframe]-=5}
 					}break
 				}
 			}break
@@ -500,6 +502,7 @@ switch _menu_value{
 					}break
 					case true:{
 						clipping_v[subframe]+=1
+						if keyboard_check(vk_space){clipping_v[subframe]+=5}
 					}
 				}
 			}break
@@ -511,6 +514,7 @@ switch _menu_value{
 					}break
 					case true:{
 						clipping_v[subframe]-=1
+						if keyboard_check(vk_space){clipping_v[subframe]-=5}
 					}
 				}
 
